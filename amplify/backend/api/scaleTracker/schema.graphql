@@ -1,0 +1,13 @@
+type ExerciseHistory @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  date: String
+  speed: String
+  exercisedefinitionsID: ID! @index(name: "byExerciseDefinitions")
+}
+
+type ExerciseDefinitions @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  description: String
+  ExerciseHistories: [ExerciseHistory] @hasMany(indexName: "byExerciseDefinitions", fields: ["id"])
+}
